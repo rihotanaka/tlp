@@ -1,5 +1,4 @@
-@if ($error->any())
-
+@if ($errors->any())
 <ul>
   @foreach($errors->all() as $error)
   <li>{{ $error }}</li>
@@ -7,18 +6,17 @@
 </ul>
 @endif
 
-<form action="{{ $url('upload') }}" method="POST" enctype="multipart/form-data">
-
-  @isset ($filename)
-  <div>
-    <img src="{{ asset('storage/' . $filename) }}">
-  </div>
-  @endisset
-
-  <label for="photo">画像ファイル:</label>
-  <input type="file" class="form-control" name="file">
+<form action="{{ url('upload') }}" method="POST" enctype="multipart/form-data">
+  @isset($image)
+   <div>
+     <img src="data:image/png;base64,<?= $image ?>">
+</div>
+@endisset
+<div class="form_parts">
+<input type="file" name="image">
   <br>
   <hr>
   {{ csrf_field() }}
   <button class="btn btn-success">Upload</button>
+</div>
 </form>
